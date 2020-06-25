@@ -1,0 +1,31 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    implementation 'com.android.tools.build:transform-api:1.5.0'
+    implementation 'com.android.tools.build:gradle:3.6.2'
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation 'org.ow2.asm:asm:8.0.1'
+}
+repositories {
+    mavenCentral()
+    google()
+}
+compileGroovy {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //设置插件的GAV参数
+            pom.groupId = 'com.dsg.costtime'
+            pom.artifactId = 'costplugin'
+            pom.version = "1.0.0"
+            //文件发布到下面目录
+            repository(url: uri('../release'))
+        }
+    }
+}
